@@ -33,8 +33,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStart : startService(intent); break;
-            case R.id.btnStop : Toast.makeText(getApplicationContext(), "stop", Toast.LENGTH_LONG).show(); stopService(intent);  break;
+            case R.id.btnStop : Toast.makeText(getApplicationContext(), "stop", Toast.LENGTH_LONG).show();
+            stopService(intent);  break;
             default: Toast.makeText(getApplicationContext(), "???", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(intent);
+        super.onDestroy();
+
     }
 }

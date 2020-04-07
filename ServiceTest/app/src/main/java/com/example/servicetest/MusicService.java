@@ -25,14 +25,15 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mediaPlayer=MediaPlayer.create(this, R.raw.walk);
         Log.d(TAG, "onCreate()");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //onStartCommand()는 onStart()와 onResume()이 같이 있다고 생각하자.
-        mediaPlayer=MediaPlayer.create(this, R.raw.walk);
-        mediaPlayer.setLooping(true);
+
+//        mediaPlayer.setLooping(true);
         mediaPlayer.start();
         Log.d(TAG, "onStartCommand()");
         return super.onStartCommand(intent, flags, startId);
