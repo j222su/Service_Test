@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //intent에서 서비스를 지정하고(MusicService.class) 이 서비스가 사용할 모든 데이터를 포함한다.
         //Service는 onStartCommand()에서 이 intent를 받는다.
         btnStart.setOnClickListener(this);
-        btnStart.setOnClickListener(this);
+        btnStop.setOnClickListener(this);
     }
 
     @Override
