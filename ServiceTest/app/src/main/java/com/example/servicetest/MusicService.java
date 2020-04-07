@@ -2,11 +2,16 @@ package com.example.servicetest;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 public class MusicService extends Service {
+
+    private static final String TAG="MusicService";
+    private MediaPlayer mediaPlayer;
 
 
     @Nullable
@@ -20,18 +25,24 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "onCreate()");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //onStartCommand()는 onStart()와 onResume()이 같이 있다고 생각하자.
+        mediaPlayer=MediaPlayer.create(this, R.raw.walk);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+        Log.d(TAG, "onStartCommand()");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mediaPlayer.stop();
+        Log.d(TAG, "onDestroy()");
     }
-
 
 }
