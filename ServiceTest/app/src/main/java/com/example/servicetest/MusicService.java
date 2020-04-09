@@ -1,7 +1,9 @@
 package com.example.servicetest;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
@@ -12,6 +14,7 @@ public class MusicService extends Service {
 
     private static final String TAG="MusicService";
     private MediaPlayer mediaPlayer;
+    BroadcastReceiver bcr;
 
 
     @Nullable
@@ -26,6 +29,8 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         mediaPlayer=MediaPlayer.create(this, R.raw.walk);
+        bcr=new MusicBroadcastReceiver();
+
         Log.d(TAG, "onCreate()");
     }
 
@@ -35,7 +40,14 @@ public class MusicService extends Service {
 
 //        mediaPlayer.setLooping(true);
         mediaPlayer.start();
+
         Log.d(TAG, "onStartCommand()");
+
+        IntentFilter intentFilter=new IntentFilter(Intent.ACTION_SCREEN_OFF);
+        this.registerReceiver(bcr, intentFilter);
+
+
+
         return super.onStartCommand(intent, flags, startId);
     }
 
